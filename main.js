@@ -8,23 +8,23 @@ var update = ''
 var title = document.getElementById("title");
 var description = document.querySelector("textarea");
 
-function addNote(){
+function addNote() {
 	contentAdded.classList.add("active")
 	main.style.filter = "blur(4px)"
 }
 
-closeAddNote = function() {
+var closeAddNote = function() {
 	contentAdded.classList.remove("active")
 	main.style.filter = "none"
-    title.value = ""
-    description.value = ""
+	title.value = ""
+	description.value = ""
 
 }
 closeSymb.onclick = closeAddNote
 var arrNotes = []
 createBtn.onclick = () => {
-	 title = document.getElementById("title");
-	 description = document.querySelector("textarea");
+	title = document.getElementById("title");
+	description = document.querySelector("textarea");
 	if (!title.value && !description.value)
 		return;
 	var objNote = {
@@ -38,7 +38,7 @@ createBtn.onclick = () => {
 		arrNotes[update].title = title.value
 		arrNotes[update].description = description.value
 		closeAddNote()
-        var note = document.getElementById(update)
+		update = ''
 	} else
 		arrNotes.unshift(objNote)
 	localStorage.setItem("notes", JSON.stringify(arrNotes))
@@ -50,10 +50,10 @@ createBtn.onclick = () => {
 function showData() {
 	if (localStorage.getItem("notes")) {
 		arrNotes = JSON.parse(localStorage.getItem("notes"))
-        main.innerHTML = '';
-        main.append(addNoteDiv);
+		main.innerHTML = '';
+		main.append(addNoteDiv);
 		for (var i = 0; i < arrNotes.length; i++) {
-	    main.innerHTML += `
+			main.innerHTML += `
         <div class="note-container" id= "${arrNotes[i]}">
         <div class="text">
           <h4 class="title">Title: <span class="title">${arrNotes[i].title}</span>
@@ -92,6 +92,7 @@ function settings() {
 		settingsElements.onmouseleave = () => settingsElements.classList.remove("active")
 	})
 }
+
 function deleteNote(i) {
 	arrNotes = JSON.parse(localStorage.getItem("notes"))
 	arrNotes.splice(i, 1)
@@ -106,5 +107,5 @@ function edit(i) {
 	title.value = arrNotes[i].title
 	description.value = arrNotes[i].description
 	update = i
-   
+
 }
